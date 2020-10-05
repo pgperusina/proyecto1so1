@@ -1,7 +1,7 @@
 FROM debian 
 LABEL maintainer="PGGP" 
 RUN apt-get update 
-RUN apt-get install python3-venv python3-pip
+RUN apt-get install -y python3-venv python3-pip
 RUN apt-get install -y git 
 RUN pip3 install Flask 
 RUN git clone git://github.com:pgperusina/proyecto1so1.git 
