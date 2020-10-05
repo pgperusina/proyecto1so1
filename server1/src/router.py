@@ -6,4 +6,4 @@ app = flask.Flask(__name__)
 def home():
     return "Router API running -_-"
 
-app.run()
+app.run(host="0.0.0.0", port=80)

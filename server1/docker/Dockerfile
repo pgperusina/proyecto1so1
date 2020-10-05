@@ -6,14 +6,10 @@ RUN apt-get install -y git
 RUN pip3 install Flask 
 ARG username
 ARG password
-RUN pwd
-RUN ls -lh
+WORKDIR "/home"
 RUN git clone https://$username:$password@github.com/pgperusina/proyecto1so1.git
-RUN ls -lh
-WORKDIR "/proyecto1so1/server1/src" 
+WORKDIR "/home/proyecto1so1/server1/src" 
+RUN git checkout develop
 RUN git pull
-RUN pwd
-RUN ls -lh
-RUN python3 router.py
-CMD ["/bin/bash"]
+CMD ["python3 router.py"]
 EXPOSE 80
