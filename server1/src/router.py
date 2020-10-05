@@ -5,7 +5,7 @@ app = flask.Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def home():
-    return "Router API running -_-"
+    return "Router API running!! :)"
 
 @app.route('/objeto', methods=['POST'])
 def post_data():
