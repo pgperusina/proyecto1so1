@@ -11,5 +11,5 @@ RUN git clone https://$username:$password@github.com/pgperusina/proyecto1so1.git
 WORKDIR "/home/proyecto1so1/server1/src" 
 RUN git checkout develop
 RUN git pull
-CMD ["python3 router.py"]
+CMD python3 router.py
 EXPOSE 80
