@@ -1,0 +1,1 @@
+db.proyecto1.insertOne({ "autor": "Init data autor", "nota": "Init data note." })

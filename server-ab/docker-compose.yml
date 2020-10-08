@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  api:
+    image: petzydrummer/pythonapi
+    container_name: "pythonapi"
+    privileged: true
+    volumes:
+      - /proc:/host/proc:ro
+      - .:/code
+    environment:
+      FLASK_ENV: development
+    ports:
+      - "80:80"
+    networks:
+      - ab-servers
+
+  database:
+    image: mongo
+    container_name: "mongodb"
+    environment: 
+        MONGO_INITDB_DATABASE: sopes1
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: rootpass
+    volumes:
+        - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+        - db-data:/data/db
+    ports:
+        - "27017:27017"
+    networks:
+       - ab-servers
+
+volumes:
+    db-data:
+    
+networks:
+    ab-servers:
