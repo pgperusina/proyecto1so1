@@ -4,8 +4,8 @@ from flask_api import status
 from pymongo import MongoClient
 import requests
 
-SERVER_A = "server-a"
-SERVER_B = "server-b"
+SERVER_A = "http://server-a"
+SERVER_B = "http://server-b"
 
 app = Flask(__name__)
 
