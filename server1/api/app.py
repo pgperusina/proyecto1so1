@@ -7,7 +7,7 @@ import requests
 SERVER_A = "server-a"
 SERVER_B = "server-b"
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
 def get_documents_count(server):
     try:
