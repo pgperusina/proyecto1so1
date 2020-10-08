@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  api:
+    image: petzydrummer/lbapi
+    container_name: "lbapi"
+    privileged: true
+    volumes:
+      - .:/code
+    environment:
+      FLASK_ENV: development
+    ports:
+      - "80:80"
