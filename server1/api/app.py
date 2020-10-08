@@ -113,30 +113,33 @@ def post_data():
         if response is not None:
             return str(response), status.HTTP_200_OK
 
-        #### Posting to server based on server RAM usage
         else:
-            a_ram = int(get_ram(SERVER_A))
-            b_ram = int(get_ram(SERVER_B))
+            return "TODO - implement ram and cpu validation.", status.HTTP_200_OK
 
-            response = post_based_on_ram(a_ram, b_ram, json_data)
-            if response is not None:
-                return str(response), status.HTTP_200_OK
+        #### Posting to server based on server RAM usage
+        # else:
+        #     a_ram = int(get_ram(SERVER_A))
+        #     b_ram = int(get_ram(SERVER_B))
+
+        #     response = post_based_on_ram(a_ram, b_ram, json_data)
+        #     if response is not None:
+        #         return str(response), status.HTTP_200_OK
         
             #### Posting to server based on server CPU usage
-            else:
-                a_cpu = int(get_cpu(SERVER_A))
-                b_cpu = int(get_cpu(SERVER_B))
+            # else:
+            #     a_cpu = int(get_cpu(SERVER_A))
+            #     b_cpu = int(get_cpu(SERVER_B))
 
-                response = post_based_on_cpu(a_cpu, b_cpu, json_data)
-                if response is not None:
-                    return str(response), status.HTTP_200_OK
+            #     response = post_based_on_cpu(a_cpu, b_cpu, json_data)
+            #     if response is not None:
+            #         return str(response), status.HTTP_200_OK
 
-                #### Posting to server A
-                else:
-                    result = post_to_server(SERVER_A, json_data)
-                    if response is None:
-                        app.logger.info("Error posting document to '%s'.", SERVER_A)
-                        return str("Error posting document to server " + SERVER_A), status.HTTP_500_INTERNAL_SERVER_ERROR
-                    else:
-                        app.logger.info("Document '%s' posted to '%s'.", json_data, SERVER_A)
-                        return str(result)
+            #     #### Posting to server A
+            #     else:
+            #         result = post_to_server(SERVER_A, json_data)
+            #         if response is None:
+            #             app.logger.info("Error posting document to '%s'.", SERVER_A)
+            #             return str("Error posting document to server " + SERVER_A), status.HTTP_500_INTERNAL_SERVER_ERROR
+            #         else:
+            #             app.logger.info("Document '%s' posted to '%s'.", json_data, SERVER_A)
+            #             return str(result)
