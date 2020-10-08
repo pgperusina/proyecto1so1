@@ -16,10 +16,10 @@ def get_documents_count(server):
             return r.text
         else:
             app.logger.info("Error getting documents count from '%s'. Status code: '%s'", server, str(r.status_code))
-            return None
+            return 0
     except Exception as e:
         app.logger.info('Error getting documents count from %s. -- %s', server, e)
-        return None
+        return 0
 
 def get_ram(server):
     try:
@@ -28,10 +28,10 @@ def get_ram(server):
             return r.text
         else:
             app.logger.info("Error getting RAM usage from '%s'. Status code: '%s'", server, str(r.status_code))
-            return None
+            return 0
     except Exception as e:
         app.logger.info('Error getting RAM usage from %s. -- %s', server, e)
-        return None
+        return 0
 
 def post_to_server(server, json_data):
     try:
