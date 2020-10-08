@@ -46,12 +46,12 @@ def post_to_server(server, json_data):
         return None
 
 def post_based_on_counting(a_count, b_count, json_data):
-    if isinstance(a_count, None) or isinstance(b_count, None):
+    if a_count is None or b_count is None:
         app.logger.info("Error, document count not available")
         return None
     elif a_count > b_count:
         result = post_to_server(SERVER_B, json_data)
-        if isinstance(result, None):
+        if result is None:
             app.logger.info("Error posting document to '%s'.", SERVER_B)
             return None
         else:
@@ -59,7 +59,7 @@ def post_based_on_counting(a_count, b_count, json_data):
             return result
     elif a_count < b_count:
         result = post_to_server(SERVER_A, json_data)
-        if isinstance(result, None):
+        if result is None:
             app.logger.info("Error posting document to '%s'.", SERVER_A)
             return None
         else:
@@ -69,12 +69,12 @@ def post_based_on_counting(a_count, b_count, json_data):
         return None
 
 def post_based_on_ram(a_ram, b_ram, json_data):
-    if isinstance(a_ram, None) or isinstance(b_ram, None):
+    if a_ram is None or b_ram is None:
         app.logger.info("Error, RAM usage not available")
         return None
     elif a_ram > b_ram:
         result = post_to_server(SERVER_B, json_data)
-        if isinstance(result, None):
+        if result is None:
             app.logger.info("Error posting document to '%s'.", SERVER_B)
             return None
         else:
@@ -82,7 +82,7 @@ def post_based_on_ram(a_ram, b_ram, json_data):
             return result
     elif a_ram < b_ram:
         result = post_to_server(SERVER_A, json_data)
-        if isinstance(result, None):
+        if result is None:
             app.logger.info("Error posting document to '%s'.", SERVER_A)
             return None
         else:
@@ -110,7 +110,7 @@ def post_data():
         
         ##### Posting to server based on mongoDB documents counting #####
         response = post_based_on_counting(a_count, b_count, json_data)
-        if not isinstance(response, None):
+        if response is not None:
             return str(response), status.HTTP_200_OK
 
         #### Posting to server based on server RAM usage
@@ -119,7 +119,7 @@ def post_data():
             b_ram = int(get_ram(SERVER_B))
 
             response = post_based_on_ram(a_ram, b_ram, json_data)
-            if not isinstance(response, None):
+            if response is not None:
                 return str(response), status.HTTP_200_OK
         
             #### Posting to server based on server CPU usage
@@ -128,13 +128,13 @@ def post_data():
                 b_cpu = int(get_cpu(SERVER_B))
 
                 response = post_based_on_cpu(a_cpu, b_cpu, json_data)
-                if not isinstance(response, None):
+                if response is not None:
                     return str(response), status.HTTP_200_OK
 
                 #### Posting to server A
                 else:
                     result = post_to_server(SERVER_A, json_data)
-                    if isinstance(result, None):
+                    if response is None:
                         app.logger.info("Error posting document to '%s'.", SERVER_A)
                         return str("Error posting document to server " + SERVER_A), status.HTTP_500_INTERNAL_SERVER_ERROR
                     else:
