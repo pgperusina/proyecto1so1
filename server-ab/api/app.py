@@ -24,8 +24,12 @@ def db_name():
 @app.route("/getDocumentsCount", methods=['GET'])
 def get_count():
     try:
-        return str(db.proyecto1.count_documents({})), status.HTTP_200_OK
+        count = db.proyecto1.count_documents({})
+        print("documents count... " + count)
+        return str(count), status.HTTP_200_OK
     except Exception as e:
+        print("error getting documents count")
+        print(e)
         app.logger.info('Error getting documents count - %s', e)
         return str("Error getting documents count."), status.HTTP_500_INTERNAL_SERVER_ERROR
 

@@ -14,12 +14,16 @@ def get_documents_count(server):
         r = requests.get(server + "/getDocumentsCount")
         if r.status_code == requests.codes.ok:
             print(r.text)
-            print("Server " + server + " documentation count - ")
+            print("Server " + server + " documentation count - " + r.text)
             return r.text 
         else:
+            print("getting documents count")
+            print(r.status_code)
             app.logger.info("Error getting documents count from '%s'. Status code: '%s'", server, str(r.status_code))
             return 0
     except Exception as e:
+        print("error getting documents count")
+        print(e)
         app.logger.info('Error getting documents count from %s. -- %s', server, e)
         return 0
 
@@ -53,15 +57,21 @@ def post_to_server(server, json_data):
 
 def post_based_on_counting(a_count, b_count, json_data):
     if a_count is None or b_count is None:
+        print("Document count not available. A or B is none.")
         app.logger.info("Error, document count not available")
         return None
     elif a_count > b_count:
         print("a > b")
         result = post_to_server(SERVER_B, json_data)
+        print("posting to server B")
+        print(result)
         if result is None:
+            print("Error posting to server B")
             app.logger.info("Error posting document to '%s'.", SERVER_B)
             return None
         else:
+            print("posting successful")
+            print(result)
             app.logger.info("Document '%s' posted to '%s'.", json_data, SERVER_B)
             return result
     elif a_count < b_count:
