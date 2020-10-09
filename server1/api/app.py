@@ -139,7 +139,7 @@ def post_data():
 
         else:
             #return "TODO - implement ram and cpu validation.", status.HTTP_200_OK
-            result = post_to_server(SERVER_A, json.dumps(json_data))
+            result = post_to_server(SERVER_A, json_data)
             print("posting to server A - same number of documents in both dbs")
             print(result)
             if result is None:
