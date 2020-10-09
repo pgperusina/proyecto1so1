@@ -9,7 +9,8 @@ services:
       - /proc:/host/proc:ro
       - ./api:/code
     environment:
-      FLASK_ENV: development
+      - FLASK_ENV=development
+      - PYTHONUNBUFFERED=1
     ports:
       - "80:80"
 

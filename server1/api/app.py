@@ -119,7 +119,7 @@ def post_data():
         ##### Posting to server based on mongoDB documents counting #####
         response = post_based_on_counting(a_count, b_count, json_data)
         print(response)
-        if response is not None or response is not 0:
+        if response is not None and response is not 0:
             return str(response), status.HTTP_200_OK
 
         else:
