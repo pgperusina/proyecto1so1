@@ -41,7 +41,7 @@ def get_ram(server):
 
 def post_to_server(server, json_data):
     try:
-        print("posting to server - " + json_data)
+        print("posting to server")
         print(json_data)
         r = requests.post(server + "/postDocument", data = json_data)
         if r.status_code == requests.codes.ok:
