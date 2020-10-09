@@ -14,7 +14,7 @@ def get_documents_count(server):
         r = requests.get(server + "/getDocumentsCount")
         if r.status_code == requests.codes.ok:
             print(r.text)
-            print("Server " + server + " documentation count - " + r.text)
+            print("Server " + server + " documentation count - " + str(r.text))
             return r.text 
         else:
             print("getting documents count")
@@ -128,6 +128,7 @@ def post_data():
         
         ##### Posting to server based on mongoDB documents counting #####
         response = post_based_on_counting(a_count, b_count, json_data)
+        print("post based on counting response")
         print(response)
         if response is not None and response is not 0:
             return str(response), status.HTTP_200_OK

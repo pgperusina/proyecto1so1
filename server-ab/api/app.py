@@ -25,7 +25,7 @@ def db_name():
 def get_count():
     try:
         count = db.proyecto1.count_documents({})
-        print("documents count... " + count)
+        print("documents count... " + str(count))
         return str(count), status.HTTP_200_OK
     except Exception as e:
         print("error getting documents count")
@@ -48,6 +48,8 @@ def post_document():
             app.logger.info('Successful post - %s', str(post_id))
             return str(post_id), status.HTTP_200_OK
     except Exception as e:
+        print("Error posting document to mongo DB")
+        print(e)
         app.logger.info('Error posting documents to mongoDB - %s', e)
         return str("Error posting documents to mongoDB."), status.HTTP_500_INTERNAL_SERVER_ERROR 
 
@@ -59,6 +61,6 @@ def get_vm_ram_usage():
         file.close()
         return str(line)
     except Exception as e:
-        print("Error VM RAM Usage print ---- ", + e)
+        print("Error VM RAM Usage print ---- ", + str(e))
         app.logger.info('Error getting VM RAM usage - %s', e)
         return str("Error getting VM RAM usage"), status.HTTP_500_INTERNAL_SERVER_ERROR
