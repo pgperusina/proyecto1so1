@@ -38,9 +38,11 @@ def post_document():
     try:
         json_data = request.get_json(force=True, silent=True, cache=False)
         if request.content_length == 0:
+            print("no data sent")
             app.logger.info('No data sent')
             return str("No data sent") , status.HTTP_500_INTERNAL_SERVER_ERROR
         elif json_data is None:
+            print("error parsing object...")
             app.logger.info('Error parsing object')
             return str("Error parsing object - " + request.get_data(cache=False, as_text=True)) , status.HTTP_500_INTERNAL_SERVER_ERROR
         else:
@@ -50,7 +52,7 @@ def post_document():
     except Exception as e:
         print("Error posting document to mongo DB")
         print(e)
-        app.logger.info('Error posting documents to mongoDB - %s', e)
+        app.logger.info('Error posting documents to mongoDB')
         return str("Error posting documents to mongoDB."), status.HTTP_500_INTERNAL_SERVER_ERROR 
 
 @app.route("/getRamUsage", methods=['GET'])

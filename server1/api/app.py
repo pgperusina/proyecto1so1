@@ -46,13 +46,16 @@ def post_to_server(server, json_data):
         r = requests.post(server + "/postDocument", data = json_data)
         if r.status_code == requests.codes.ok:
             print(r.text)
-            print("Server " + server + " posting - ")
+            print("Server " + server + " posting....")
             return r.text
         else:
-            app.logger.info("Error posting document to '%s'. Status code: '%s'", server, str(r.status_code))
+            print("error posting to server " + server)
+            print(str(r.status_code))
+            app.logger.info("Error posting document to '%s'.", server)
             return None
     except Exception as e:
-        app.logger.info("Error posting document to '%s'. -- %s", server, e)
+        app.logger.info("Error posting document to '%s'.", server)
+        app.logger.info()
         return None
 
 def post_based_on_counting(a_count, b_count, json_data):
