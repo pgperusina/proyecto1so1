@@ -36,7 +36,9 @@ def get_count():
 @app.route("/postDocument", methods=['POST'])
 def post_document():
     try:
-        json_data = request.get_json(force=True, silent=True, cache=False)
+        print("In SERVER A-B postDocument endpoint")
+        print(json_data)
+        json_data = request.get_json(force=True, silent=False, cache=False)
         if request.content_length == 0:
             print("no data sent")
             app.logger.info('No data sent')
