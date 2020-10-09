@@ -120,13 +120,14 @@ def home():
 
 @app.route('/document', methods=['POST'])
 def post_data():
-    json_data = request.get_json(force=True, silent=True, cache=False)
+    #json_data = request.get_json(force=True, silent=True, cache=False)
+    json_data = request.text
     if request.content_length == 0:
         app.logger.info("No data sent to post")
         return str("No data sent"), status.HTTP_500_INTERNAL_SERVER_ERROR
     elif json_data is None:
         app.logger.info("Error parsing object to post")
-        return str("Error parsing object - " + request.get_data(cache=False, as_text=True)), status.HTTP_500_INTERNAL_SERVER_ERROR
+        return str("Error parsing object - " + request.text), status.HTTP_500_INTERNAL_SERVER_ERROR
     else:
         a_count = int(get_documents_count(SERVER_A))
         b_count = int(get_documents_count(SERVER_B))
