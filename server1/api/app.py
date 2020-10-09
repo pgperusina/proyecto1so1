@@ -43,7 +43,8 @@ def post_to_server(server, json_data):
     try:
         print("posting to server")
         print(json_data)
-        r = requests.post(server + "/postDocument", data = json_data)
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        r = requests.post(server + "/postDocument", data = json_data, headers = headers)
         if r.status_code == requests.codes.ok:
             print(r.text)
             print("Server " + server + " posting....")

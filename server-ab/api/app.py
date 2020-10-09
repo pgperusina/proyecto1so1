@@ -39,7 +39,7 @@ def post_document():
         print("In SERVER A-B postDocument endpoint")
         print(request)
         print(request.data)
-        json_data = request.get_json(force=True, silent=False cache=False)
+        json_data = request.get_json(force=True, silent=False, cache=False)
         print(json_data)
         if request.content_length == 0:
             print("no data sent")
