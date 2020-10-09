@@ -121,7 +121,7 @@ def home():
 @app.route('/document', methods=['POST'])
 def post_data():
     #json_data = request.get_json(force=True, silent=True, cache=False)
-    json_data = request.text
+    json_data = request.data
     if request.content_length == 0:
         app.logger.info("No data sent to post")
         return str("No data sent"), status.HTTP_500_INTERNAL_SERVER_ERROR
