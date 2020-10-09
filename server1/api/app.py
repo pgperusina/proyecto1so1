@@ -139,11 +139,13 @@ def post_data():
 
         else:
             #return "TODO - implement ram and cpu validation.", status.HTTP_200_OK
-            response = post_based_on_counting(a_count, b_count, json_data)
-            print("post based on counting response")
-            print(response)
-            if response is not None and response is not 0:
-                return str(response), status.HTTP_200_OK
+            result = post_to_server(SERVER_A, json.dumps(json_data))
+            print("posting to server A - same number of documents in both dbs")
+            print(result)
+            if result is None:
+                print("Error posting to server A")
+                app.logger.info("Error posting document to '%s'.", SERVER_A)
+                return str("Error sending data to AAAAA"), status.HTTP_500_INTERNAL_SERVER_ERROR
 
         #### Posting to server based on server RAM usage
         # else:
