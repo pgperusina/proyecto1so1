@@ -7,7 +7,7 @@ services:
     privileged: true
     volumes:
       - /proc:/host/proc:ro
-      - .:/code
+      - ./api:/code
     environment:
       FLASK_ENV: development
     ports:
