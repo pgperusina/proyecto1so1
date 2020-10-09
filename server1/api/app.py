@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 from flask_api import status
-from flask import jsonify
+import json
 from pymongo import MongoClient
 import requests
 
@@ -43,9 +43,8 @@ def get_ram(server):
 def post_to_server(server, json_data):
     try:
         print("posting to server")
-        print(json_data)
-        print(jsonify(json_data))
-        r = requests.post(server + "/postDocument", data = jsonify(json_data))
+        print(json.dumps(json_data))
+        r = requests.post(server + "/postDocument", data = json.dumps(json_data))
         if r.status_code == requests.codes.ok:
             print(r.text)
             print("Server " + server + " posting....")
@@ -120,8 +119,7 @@ def home():
 
 @app.route('/document', methods=['POST'])
 def post_data():
-    #json_data = request.get_json(force=True, silent=True, cache=False)
-    json_data = request.data
+    json_data = request.get_json(force=True, silent=True, cache=False)
     if request.content_length == 0:
         app.logger.info("No data sent to post")
         return str("No data sent"), status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -140,7 +138,12 @@ def post_data():
             return str(response), status.HTTP_200_OK
 
         else:
-            return "TODO - implement ram and cpu validation.", status.HTTP_200_OK
+            #return "TODO - implement ram and cpu validation.", status.HTTP_200_OK
+            response = post_based_on_counting(a_count, b_count, json_data)
+            print("post based on counting response")
+            print(response)
+            if response is not None and response is not 0:
+                return str(response), status.HTTP_200_OK
 
         #### Posting to server based on server RAM usage
         # else:
