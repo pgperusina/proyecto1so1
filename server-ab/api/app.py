@@ -37,7 +37,9 @@ def get_count():
 def post_document():
     try:
         print("In SERVER A-B postDocument endpoint")
-        json_data = request.get_json(force=True, silent=False, cache=False)
+        print(request)
+        print(request.data)
+        json_data = request.get_json(force=True, silent=False cache=False)
         print(json_data)
         if request.content_length == 0:
             print("no data sent")
