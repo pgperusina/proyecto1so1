@@ -13,7 +13,9 @@ def get_documents_count(server):
     try:
         r = requests.get(server + "/getDocumentsCount")
         if r.status_code == requests.codes.ok:
-            return r.text
+            print(r.text)
+            print("Server " + server + " documentation count - ")
+            return r.text 
         else:
             app.logger.info("Error getting documents count from '%s'. Status code: '%s'", server, str(r.status_code))
             return 0
@@ -35,8 +37,12 @@ def get_ram(server):
 
 def post_to_server(server, json_data):
     try:
+        print("posting to server - " + json_data)
+        print(json_data)
         r = requests.post(server + "/postDocument", data = json_data)
         if r.status_code == requests.codes.ok:
+            print(r.text)
+            print("Server " + server + " posting - ")
             return r.text
         else:
             app.logger.info("Error posting document to '%s'. Status code: '%s'", server, str(r.status_code))
@@ -50,6 +56,7 @@ def post_based_on_counting(a_count, b_count, json_data):
         app.logger.info("Error, document count not available")
         return None
     elif a_count > b_count:
+        print("a > b")
         result = post_to_server(SERVER_B, json_data)
         if result is None:
             app.logger.info("Error posting document to '%s'.", SERVER_B)
@@ -58,6 +65,7 @@ def post_based_on_counting(a_count, b_count, json_data):
             app.logger.info("Document '%s' posted to '%s'.", json_data, SERVER_B)
             return result
     elif a_count < b_count:
+        print("a < b")
         result = post_to_server(SERVER_A, json_data)
         if result is None:
             app.logger.info("Error posting document to '%s'.", SERVER_A)
@@ -110,7 +118,8 @@ def post_data():
         
         ##### Posting to server based on mongoDB documents counting #####
         response = post_based_on_counting(a_count, b_count, json_data)
-        if response is not None:
+        print(response)
+        if response is not None or response is not 0:
             return str(response), status.HTTP_200_OK
 
         else:
