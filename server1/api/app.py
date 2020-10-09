@@ -45,7 +45,7 @@ def post_to_server(server, json_data):
         print("posting to server")
         print(json_data)
         print(jsonify(json_data))
-        r = requests.post(server + "/postDocument", data = jsonify(json_data), headers = headers)
+        r = requests.post(server + "/postDocument", data = jsonify(json_data))
         if r.status_code == requests.codes.ok:
             print(r.text)
             print("Server " + server + " posting....")
