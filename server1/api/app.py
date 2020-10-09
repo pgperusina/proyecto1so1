@@ -147,7 +147,7 @@ def post_data():
                 app.logger.info("Error posting document to '%s'.", SERVER_A)
                 return str("Error sending data to AAAAA"), status.HTTP_500_INTERNAL_SERVER_ERROR
             else:
-                return str("data sent to AAAAAAA"), status.HTTP_200_OK
+                return str(result), status.HTTP_200_OK
 
         #### Posting to server based on server RAM usage
         # else:
