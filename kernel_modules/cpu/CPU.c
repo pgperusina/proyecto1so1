@@ -14,6 +14,8 @@
 #include <linux/sched/cputime.h>
 #include <linux/tick.h>
 
+static const char *filename = "cpu_info";
+
 #ifndef arch_irq_stat_cpu
 #define arch_irq_stat_cpu(cpu) 0
 #endif
