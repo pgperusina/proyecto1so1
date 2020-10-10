@@ -184,8 +184,10 @@ static int show_stat(struct seq_file *p, void *v)
 	cpu_idle = abs(cpu_idle) - abs(last_cpu_idle);
 	seq_printf(p, "delta \t");
 	seq_printf(p, "%d", cpu_delta);
+	seq_printf(p, "\n");
 	seq_printf(p, "idle_delta \t");
 	seq_printf(p, "%d", cpu_idle);
+	seq_printf(p, "\n");
 
 	cpu_used = abs(cpu_delta) - abs(cpu_idle);
 
