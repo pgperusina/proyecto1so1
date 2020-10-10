@@ -110,9 +110,9 @@ static int show_stat(struct seq_file *p, void *v)
 	u64 user, nice, system, idle, iowait, irq, softirq, steal;
 	u64 guest, guest_nice;
 	u64 sum, last_sum = 0;
-	u64 last_cpu_idle = 0;
+	u64 cpu_idle = 0;
 	u64 cpu_delta, cpu_used = 0;
-	u64 cpu_usage, cpu_idle = 0;
+	u64 cpu_usage, cpu_usage_2 cpu_idle = 0;
 	struct timespec64 boottime;
 
 	user = nice = system = idle = iowait =
@@ -135,48 +135,40 @@ static int show_stat(struct seq_file *p, void *v)
 	}
 
 	sum = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
-
-	seq_printf(p, "First \t");
-	seq_printf(p, "%llu", nano_to_clock_t(user));
-	seq_printf(p, "\t ");
-	seq_printf(p, "%llu", nano_to_clock_t(system));
-	seq_printf(p, "\t");
-	seq_printf(p, "%llu", nano_to_clock_t(iowait));
-	seq_printf(p, "\t");
-	seq_printf(p, "%llu", nano_to_clock_t(idle));
-	seq_printf(p, "\t");
-	seq_printf(p, "%llu", nano_to_clock_t(sum));
-	seq_printf(p, "\n");
-
+	cpu_idle = idle;
 	cpu_usage = 100 - (100 * nano_to_clock_t(idle)) / nano_to_clock_t(sum);
 
-	// msleep(2000);
+	msleep(2000);
 
-	// i = 0;
-	// user = 0;
-	// nice = 0;
-	// system = 0;
-	// idle = 0;
-	// iowait = 0;
-	// irq = 0;
-	// softirq = 0;
-	// steal = 0;
-	// guest = 0;
-	// guest_nice = 0;
+	i = 0;
+	user = 0;
+	nice = 0;
+	system = 0;
+	idle = 0;
+	iowait = 0;
+	irq = 0;
+	softirq = 0;
+	steal = 0;
+	guest = 0;
+	guest_nice = 0;
 
-	// for_each_possible_cpu(i)
-	// {
-	// 	user += kcpustat_cpu(i).cpustat[CPUTIME_USER];
-	// 	nice += kcpustat_cpu(i).cpustat[CPUTIME_NICE];
-	// 	system += kcpustat_cpu(i).cpustat[CPUTIME_SYSTEM];
-	// 	idle += get_idle_time(i);
-	// 	iowait += get_iowait_time(i);
-	// 	irq += kcpustat_cpu(i).cpustat[CPUTIME_IRQ];
-	// 	softirq += kcpustat_cpu(i).cpustat[CPUTIME_SOFTIRQ];
-	// 	steal += kcpustat_cpu(i).cpustat[CPUTIME_STEAL];
-	// 	guest += kcpustat_cpu(i).cpustat[CPUTIME_GUEST];
-	// 	guest_nice += kcpustat_cpu(i).cpustat[CPUTIME_GUEST_NICE];
-	// }
+	for_each_possible_cpu(i)
+	{
+		user += kcpustat_cpu(i).cpustat[CPUTIME_USER];
+		nice += kcpustat_cpu(i).cpustat[CPUTIME_NICE];
+		system += kcpustat_cpu(i).cpustat[CPUTIME_SYSTEM];
+		idle += get_idle_time(i);
+		iowait += get_iowait_time(i);
+		irq += kcpustat_cpu(i).cpustat[CPUTIME_IRQ];
+		softirq += kcpustat_cpu(i).cpustat[CPUTIME_SOFTIRQ];
+		steal += kcpustat_cpu(i).cpustat[CPUTIME_STEAL];
+		guest += kcpustat_cpu(i).cpustat[CPUTIME_GUEST];
+		guest_nice += kcpustat_cpu(i).cpustat[CPUTIME_GUEST_NICE];
+	}
+
+	last_sum = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
+
+	cpu_usage_2 = 100 - (100 * (nano_to_clock_t(cpu_idle) - nano_to_clock_t(idle)) / (nano_to_clock_t(sum) - nano_to_clock_t(last_sum));
 
 	// last_sum = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 	// last_cpu_idle = idle;
@@ -212,6 +204,9 @@ static int show_stat(struct seq_file *p, void *v)
 
 	seq_printf(p, "CPU usage \t");
 	seq_printf(p, "%d", cpu_usage);
+	seq_printf(p, "\n");
+	seq_printf(p, "CPU usage 2 \t");
+	seq_printf(p, "%d", cpu_usage_2);
 	seq_printf(p, "\n");
 
 	return 0;
