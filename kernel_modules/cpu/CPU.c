@@ -112,7 +112,7 @@ static int show_stat(struct seq_file *p, void *v)
 	u64 sum, last_sum = 0;
 	u64 cpu_idle = 0;
 	u64 cpu_delta, cpu_used = 0;
-	u64 cpu_usage, cpu_usage_2, cpu_idle = 0;
+	u64 cpu_usage, cpu_usage_2 = 0;
 	struct timespec64 boottime;
 
 	user = nice = system = idle = iowait =
