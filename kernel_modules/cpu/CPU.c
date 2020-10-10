@@ -191,7 +191,7 @@ static int show_stat(struct seq_file *p, void *v)
 
 	cpu_used = abs(cpu_delta) - abs(cpu_idle);
 
-	cpu_usage = (100 * cpu_used) / abs(cpu_delta);
+	cpu_usage = 100 - (100 * cpu_idle) / abs(cpu_delta);
 
 	seq_printf(p, "Last \t");
 	seq_printf(p, "%llu", nano_to_clock_t(user));
