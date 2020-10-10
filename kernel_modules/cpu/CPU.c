@@ -110,7 +110,8 @@ static int show_stat(struct seq_file *p, void *v)
 	u64 guest, guest_nice;
 	u64 sum, last_sum = 0;
 	u64 cpu_idle, last_cpu_idle = 0;
-	struct timespec64 boottime;
+	u64 cpu_delta cpu_used, cpu_usage,
+		struct timespec64 boottime;
 
 	user = nice = system = idle = iowait =
 		irq = softirq = steal = 0;
@@ -146,7 +147,7 @@ static int show_stat(struct seq_file *p, void *v)
 	seq_printf(p, "%llu", nano_to_clock_t(sum));
 	seq_printf(p, "\n");
 
-	sleep(2);
+	msleep(2);
 
 	for_each_possible_cpu(i)
 	{
