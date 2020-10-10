@@ -13,17 +13,17 @@
 static const char *filename = "memory_info";
 struct sysinfo i;
 
-extern void show_val_kb(struct seq_file *m, const char *s, unsigned long num)
-{
-    seq_put_decimal_ull_width(m, s, num << (PAGE_SHIFT - 10), 8);
-    seq_write(m, " kB\n", 4);
-}
+// static void show_val_kb(struct seq_file *m, const char *s, unsigned long num)
+// {
+//     seq_put_decimal_ull_width(m, s, num << (PAGE_SHIFT - 10), 8);
+//     seq_write(m, " kB\n", 4);
+// }
 
 static int show_memory_info(struct seq_file *f, void *v)
 {
     si_meminfo(&i);
-    show_val_kb(f, "TotalRAM:  ", i.totalram);
-    show_val_kb(f, "FreeRAM:   ", i.freeram);
+    seq_printf(f, "TotalRAM:  ", i.totalram);
+    seq_printf(f, "FreeRAM:   ", i.freeram);
     return 0;
 }
 
