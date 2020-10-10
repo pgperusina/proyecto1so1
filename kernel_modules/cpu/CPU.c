@@ -200,16 +200,23 @@ static const struct file_operations proc_stat_operations = {
 	.release = single_release,
 };
 
-static int __init proc_stat_init(void)
+static int __init cpu_init(void)
 {
-	proc_create("stat", 0, NULL, &proc_stat_operations);
+	printk(KERN_INFO "Module loaded...\n");
+	proc_create(filename, 0, NULL, &proc_stat_operations);
+	printk(KERN_INFO "Device file created: /proc/%s.\n", filename);
 	return 0;
 }
-fs_initcall(proc_stat_init);
 
-module_init(start_function);
-module_exit(clean_function);
+static void __exit cpu_exit(void)
+{
+	remove_proc_entry(filename, NULL);
+	printk(KERN_INFO "Module removed...\n");
+}
 
-MODULE_AUTHOR("Alan Giovanni Guzman Toledo");
-MODULE_DESCRIPTION("Modulo de kernel que escribe en un archivo llamado 'CPU_stat' informacion del CPU");
+module_init(cpu_init);
+module_exit(cpu_exit);
+
+MODULE_AUTHOR("Pablo Gerardo García Perusina");
+MODULE_DESCRIPTION("Kernel module to show total and free RAM. OS1");
 MODULE_LICENSE("GPL");
