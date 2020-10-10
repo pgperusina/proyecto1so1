@@ -110,9 +110,9 @@ static int show_stat(struct seq_file *p, void *v)
 	u64 user, nice, system, idle, iowait, irq, softirq, steal;
 	u64 guest, guest_nice;
 	u64 sum, last_sum = 0;
-	u64 cpu_idle, last_cpu_idle = 0;
-	u64 cpu_delta, cpu_used = 0;
-	int32_t cpu_usage = 0;
+	u64 last_cpu_idle = 0;
+	int32_t cpu_delta, cpu_used = 0;
+	int32_t cpu_usage, cpu_idle = 0;
 	struct timespec64 boottime;
 
 	user = nice = system = idle = iowait =
