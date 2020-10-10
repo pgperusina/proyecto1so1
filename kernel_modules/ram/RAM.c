@@ -5,16 +5,10 @@
 #include <linux/fs.h>
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
-//#include <asm/uaccess.h>
-//#include <linux/hugetlb.h>
-// #include <linux/mm.h>
-// #include <linux/mman.h>
-// #include <linux/mmzone.h>
-// #include <linux/quicklist.h>
-// #include <linux/swap.h>
-// #include <linux/swapfile.h>
-// #include <linux/vmstat.h>
-// #include <linux/atomic.h>
+#include <asm/uaccess.h>
+#include <linux/mm.h>
+//#include <linux/mman.h>
+//#include <linux/mmzone.h>
 
 static const char *filename = "memory_info";
 struct sysinfo i;
@@ -22,8 +16,8 @@ struct sysinfo i;
 static int show_memory_info(struct seq_file *f, void *v)
 {
     si_meminfo(&i);
-    seq_printf(f, "%8lu\n", (i.totalram));
-    seq_printf(f, "%8lu\n", (i.freeram));
+    seq_printf(f, "TotalRAM: %8lu\n", (i.totalram));
+    seq_printf(f, "FreeRAM: %8lu\n", (i.freeram));
     return 0;
 }
 
