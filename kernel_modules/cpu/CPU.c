@@ -204,7 +204,7 @@ static int show_stat(struct seq_file *p, void *v)
 	seq_printf(p, "\n");
 
 	seq_printf(p, "CPU usage \t");
-	seq_printf(p, "%llu", cpu_usage);
+	seq_printf(p, "%d", cpu_usage);
 	seq_printf(p, "\n");
 
 	return 0;
