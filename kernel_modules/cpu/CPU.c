@@ -151,6 +151,17 @@ static int show_stat(struct seq_file *p, void *v)
 	msleep(2);
 
 	i = 0;
+	user = 0;
+	nice = 0;
+	system = 0;
+	idle = 0;
+	iowait = 0;
+	irq = 0;
+	softirq = 0;
+	steal = 0;
+	guest = 0;
+	guest_nice = 0;
+
 	for_each_possible_cpu(i)
 	{
 		user += kcpustat_cpu(i).cpustat[CPUTIME_USER];
@@ -187,8 +198,13 @@ static int show_stat(struct seq_file *p, void *v)
 	seq_printf(p, "%llu", nano_to_clock_t(last_sum));
 	seq_printf(p, "\n");
 
+	seq_printf(p, "CPU used \t");
+	seq_printf(p, "%llu", cpu_used);
+	seq_printf(p, "\n");
+
 	seq_printf(p, "CPU usage \t");
 	seq_printf(p, "%llu", cpu_usage);
+	seq_printf(p, "\n");
 
 	return 0;
 }
