@@ -16,7 +16,7 @@ static int show_memory_info(struct seq_file *f, void *v)
     total = ((uint64_t)i.totalram * i.mem_unit) / 1024;
     freeram = ((uint64_t)i.freeram * i.mem_unit) / 1024;
     used = total - freeram;
-    seq_printf(m, "{\n\t\"used\":%d,\n\t\"total\":%d,\n}\n", used, total);
+    seq_printf(f, "{\n\t\"used\":%d,\n\t\"total\":%d,\n}\n", used, total);
     return 0;
 }
 
