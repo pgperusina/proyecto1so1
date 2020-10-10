@@ -85,11 +85,11 @@ static u64 get_iowait_time(int cpu)
 static int show_stat(struct seq_file *p, void *v)
 {
 	int i, j;
+	u64 total = 0;
 	u64 user, nice, system, idle, iowait, irq, softirq, steal;
 	u64 guest, guest_nice;
 	u64 sum = 0;
 	u64 sum_softirq = 0;
-	unsigned int per_softirq_sums[NR_SOFTIRQS] = {0};
 	struct timespec64 boottime;
 
 	user = nice = system = idle = iowait =
@@ -109,29 +109,15 @@ static int show_stat(struct seq_file *p, void *v)
 		steal += kcpustat_cpu(i).cpustat[CPUTIME_STEAL];
 		guest += kcpustat_cpu(i).cpustat[CPUTIME_GUEST];
 		guest_nice += kcpustat_cpu(i).cpustat[CPUTIME_GUEST_NICE];
-		sum += kstat_cpu_irqs_sum(i);
-		sum += arch_irq_stat_cpu(i);
-
-		for (j = 0; j < NR_SOFTIRQS; j++)
-		{
-			unsigned int softirq_stat = kstat_softirqs_cpu(j, i);
-
-			per_softirq_sums[j] += softirq_stat;
-			sum_softirq += softirq_stat;
-		}
 	}
-	sum += arch_irq_stat();
+
+	total = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 
 	seq_put_decimal_ull(p, "cpu  ", nsec_to_clock_t(user));
-	seq_put_decimal_ull(p, " ", nsec_to_clock_t(nice));
 	seq_put_decimal_ull(p, " ", nsec_to_clock_t(system));
 	seq_put_decimal_ull(p, " ", nsec_to_clock_t(idle));
 	seq_put_decimal_ull(p, " ", nsec_to_clock_t(iowait));
-	seq_put_decimal_ull(p, " ", nsec_to_clock_t(irq));
-	seq_put_decimal_ull(p, " ", nsec_to_clock_t(softirq));
-	seq_put_decimal_ull(p, " ", nsec_to_clock_t(steal));
-	seq_put_decimal_ull(p, " ", nsec_to_clock_t(guest));
-	seq_put_decimal_ull(p, " ", nsec_to_clock_t(guest_nice));
+	seq_put_decimal_ull(p, " ", nsec_to_clock_t(total));
 	seq_putc(p, '\n');
 
 	for_each_online_cpu(i)
@@ -147,42 +133,15 @@ static int show_stat(struct seq_file *p, void *v)
 		steal = kcpustat_cpu(i).cpustat[CPUTIME_STEAL];
 		guest = kcpustat_cpu(i).cpustat[CPUTIME_GUEST];
 		guest_nice = kcpustat_cpu(i).cpustat[CPUTIME_GUEST_NICE];
+		total = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 		seq_printf(p, "cpu%d", i);
 		seq_put_decimal_ull(p, " ", nsec_to_clock_t(user));
-		seq_put_decimal_ull(p, " ", nsec_to_clock_t(nice));
 		seq_put_decimal_ull(p, " ", nsec_to_clock_t(system));
 		seq_put_decimal_ull(p, " ", nsec_to_clock_t(idle));
 		seq_put_decimal_ull(p, " ", nsec_to_clock_t(iowait));
-		seq_put_decimal_ull(p, " ", nsec_to_clock_t(irq));
-		seq_put_decimal_ull(p, " ", nsec_to_clock_t(softirq));
-		seq_put_decimal_ull(p, " ", nsec_to_clock_t(steal));
-		seq_put_decimal_ull(p, " ", nsec_to_clock_t(guest));
-		seq_put_decimal_ull(p, " ", nsec_to_clock_t(guest_nice));
+		seq_put_decimal_ull(p, " ", nsec_to_clock_t(total));
 		seq_putc(p, '\n');
 	}
-	seq_put_decimal_ull(p, "intr ", (unsigned long long)sum);
-
-	/* sum again ? it could be updated? */
-	for_each_irq_nr(j)
-		seq_put_decimal_ull(p, " ", kstat_irqs_usr(j));
-
-	seq_printf(p,
-			   "\nctxt %llu\n"
-			   "btime %llu\n"
-			   "processes %lu\n"
-			   "procs_running %lu\n"
-			   "procs_blocked %lu\n",
-			   nr_context_switches(),
-			   (unsigned long long)boottime.tv_sec,
-			   total_forks,
-			   nr_running(),
-			   nr_iowait());
-
-	seq_put_decimal_ull(p, "softirq ", (unsigned long long)sum_softirq);
-
-	for (i = 0; i < NR_SOFTIRQS; i++)
-		seq_put_decimal_ull(p, " ", per_softirq_sums[i]);
-	seq_putc(p, '\n');
 
 	return 0;
 }
@@ -206,7 +165,7 @@ static const struct file_operations proc_stat_operations = {
 
 static int __init proc_stat_init(void)
 {
-	proc_create("stat", 0, NULL, &proc_stat_operations);
+	proc_create("cpu_info", 0, NULL, &proc_stat_operations);
 	return 0;
 }
 
