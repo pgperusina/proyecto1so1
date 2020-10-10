@@ -68,19 +68,18 @@
 #include <linux/seq_file.h>
 #include <linux/proc_fs.h>
 #include <linux/mm.h>
-#include <linux/cpufreq.h>
 
 void __attribute__((weak)) arch_report_meminfo(struct seq_file *m) {}
 
 static int my_proc_show(struct seq_file *m, void *v)
 {
     struct sysinfo i;
-    struct cpufreq_policy *cp;
-    unsigned long used, total;
+    int32_t used, total, freeram;
 
-    si_meminfo(&i);                                    //gets memory info
-    used = (uint64_t)i.totalram - (uint64_t)i.freeram; //used memory
-    total = (uint64_t)i.totalram;                      //total memory
+    si_meminfo(&i); //gets memory info
+    total = ((uint64_t)i.totalram * i.mem_unit) / 1024;
+    freeram = ((uint64_t)i.freeram * i.mem_unit) / 1024;
+    used = total - freeram; //used memory
 
     //cp = cpufreq_cpu_get(0); //returning 0
     //uc_temp = cp->cur - cp->min; //usec cpu freq
