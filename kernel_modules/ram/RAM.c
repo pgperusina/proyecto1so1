@@ -14,11 +14,14 @@ static int show_memory_info(struct seq_file *f, void *v)
     int32_t used;
     int32_t total;
     int32_t freeram;
+    int32_t usage;
     si_meminfo(&i);
     total = ((uint64_t)i.totalram * i.mem_unit) / 1024;
     freeram = ((uint64_t)i.freeram * i.mem_unit) / 1024;
     used = total - freeram;
-    seq_printf(f, "{\n\t\"used\":\"%d\",\n\t\"total\":\"%d\",\n}\n", used, total);
+    usage = (100 * used) / total;
+    // Values in kB
+    seq_printf(f, "{\n\t\"used\":\"%d\",\n\t\"total\":\"%d\",\n\t\"usage\":\"%d\",\n}\n", used, total, usage);
     return 0;
 }
 

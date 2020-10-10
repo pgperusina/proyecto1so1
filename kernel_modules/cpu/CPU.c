@@ -181,9 +181,9 @@ static int show_stat(struct seq_file *p, void *v)
 	last_cpu_idle = idle;
 
 	cpu_delta = sum - last_sum;
-	cpu_idle = cpu_idle - last_cpu_idle;
+	cpu_idle = abs(cpu_idle) - abs(last_cpu_idle);
 
-	cpu_used = cpu_delta - cpu_idle;
+	cpu_used = abs(cpu_delta) - abs(cpu_idle);
 
 	cpu_usage = ((uint64_t)cpu_used) / (uint64_t)cpu_delta;
 
@@ -200,7 +200,7 @@ static int show_stat(struct seq_file *p, void *v)
 	seq_printf(p, "\n");
 
 	seq_printf(p, "CPU used \t");
-	seq_printf(p, "%llu", cpu_used);
+	seq_printf(p, "%d", cpu_used);
 	seq_printf(p, "\n");
 
 	seq_printf(p, "CPU usage \t");
