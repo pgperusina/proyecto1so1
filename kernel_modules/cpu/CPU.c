@@ -113,15 +113,16 @@ static int show_stat(struct seq_file *p, void *v)
 
 	total = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 
-	seq_put_decimal_ull(p, ' ', (user));
+	seq_printf(p, "All \t");
+	seq_printf(p, '%d', user);
 	seq_printf(p, "\t ");
-	seq_put_decimal_ull(p, ' ', (system));
+	seq_printf(p, '%d', system);
 	seq_printf(p, "\t");
-	seq_put_decimal_ull(p, ' ', (iowait));
+	seq_printf(p, '%d', iowait);
 	seq_printf(p, "\t");
-	seq_put_decimal_ull(p, ' ', (idle));
+	seq_printf(p, '%d', idle);
 	seq_printf(p, "\t");
-	seq_put_decimal_ull(p, ' ', (total));
+	seq_printf(p, '%d', total);
 	seq_printf(p, "\n");
 
 	for_each_online_cpu(i)
@@ -139,15 +140,15 @@ static int show_stat(struct seq_file *p, void *v)
 		guest_nice = kcpustat_cpu(i).cpustat[CPUTIME_GUEST_NICE];
 		total = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 		seq_printf(p, "cpu%d", i);
-		seq_put_decimal_ull(p, ' ', user);
+		seq_printf(p, '%d', user);
 		seq_printf(p, "\t ");
-		seq_put_decimal_ull(p, ' ', (system));
+		seq_printf(p, '%d', system);
 		seq_printf(p, "\t");
-		seq_put_decimal_ull(p, ' ', (iowait));
+		seq_printf(p, '%d', iowait);
 		seq_printf(p, "\t");
-		seq_put_decimal_ull(p, ' ', (idle));
+		seq_printf(p, '%d', idle);
 		seq_printf(p, "\t");
-		seq_put_decimal_ull(p, ' ', (total));
+		seq_printf(p, '%d', total);
 		seq_printf(p, "\n");
 	}
 
