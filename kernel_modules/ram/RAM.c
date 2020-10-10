@@ -5,11 +5,8 @@
 #include <linux/fs.h>
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
+#include <fs/seq_file.h>
 #include <linux/mm.h>
-#include <asm/uaccess.h>
-#include <linux/mm.h>
-#include <linux/mman.h>
-#include <linux/mmzone.h>
 #include <asm/page.h>
 
 static const char *filename = "memory_info";
