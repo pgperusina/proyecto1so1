@@ -168,7 +168,7 @@ static int show_stat(struct seq_file *p, void *v)
 	last_cpu_idle = idle;
 
 	cpu_delta = sum - last_sum;
-	cpu_idle - cpu_idle - last_cpu_idle;
+	cpu_idle = cpu_idle - last_cpu_idle;
 
 	cpu_used = cpu_delta - cpu_idle;
 
