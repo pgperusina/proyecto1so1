@@ -4,10 +4,22 @@
 
 #include <linux/fs.h>
 #include <linux/proc_fs.h>
-#include <linux/seq_file.h>
-#include <fs/seq_file.h>
 #include <linux/mm.h>
+
+#include <linux/mman.h>
+#include <linux/mmzone.h>
+#include <linux/proc_fs.h>
+#include <linux/percpu.h>
+#include <linux/quicklist.h>
+#include <linux/seq_file.h>
+#include <linux/swap.h>
+#include <linux/vmstat.h>
+#include <linux/atomic.h>
+#include <linux/vmalloc.h>
+
 #include <asm/page.h>
+#include <asm/pgtable.h>
+#include "internal.h"
 
 static const char *filename = "memory_info";
 struct sysinfo i;
