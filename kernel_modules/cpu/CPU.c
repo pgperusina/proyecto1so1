@@ -202,7 +202,7 @@ static const struct file_operations proc_stat_operations = {
 	.release = single_release,
 };
 
-static int __init cpu_init(void)
+static int __init proc_cpuinfo_init(void)
 {
 	printk(KERN_INFO "Module loaded...\n");
 	proc_create(filename, 0, NULL, &proc_stat_operations);
@@ -210,14 +210,14 @@ static int __init cpu_init(void)
 	return 0;
 }
 
-static void __exit cpu_exit(void)
+static void __exit proc_cpuinfo_exit(void)
 {
 	remove_proc_entry(filename, NULL);
 	printk(KERN_INFO "Module removed...\n");
 }
 
-module_init(cpu_init);
-module_exit(cpu_exit);
+module_init(proc_cpuinfo_init);
+module_exit(proc_cpuinfo_exit);
 
 MODULE_AUTHOR("Pablo Gerardo García Perusina");
 MODULE_DESCRIPTION("Kernel module to show total and free RAM. OS1");
