@@ -76,7 +76,7 @@ static int my_proc_show(struct seq_file *m, void *v)
 {
     struct sysinfo i;
     struct cpufreq_policy *cp;
-    unsigned long uc_temp, tc_temp, um_temp, tm_temp;
+    unsigned long used, total;
 
     si_meminfo(&i);                //gets memory info
     used = i.totalram - i.freeram; //used memory
@@ -86,7 +86,7 @@ static int my_proc_show(struct seq_file *m, void *v)
     //uc_temp = cp->cur - cp->min; //usec cpu freq
     //tc_temp = cp->max - cp->min; //total cpu freq
 
-    seq_printf(m, "{\n\t\"used\":%lu,\n\t\"total\":%lu,\n}\n", used, total, ); //writing in JSON format in /proc/modulo file
+    seq_printf(m, "{\n\t\"used\":%lu,\n\t\"total\":%lu,\n}\n", used, total); //writing in JSON format in /proc/modulo file
 
     arch_report_meminfo(m);
 
