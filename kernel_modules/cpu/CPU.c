@@ -86,11 +86,11 @@ static u64 nsec_to_clock_t(u64 x)
 {
 	if (NSEC_PER_SEC % USER_HZ == 0)
 	{
-		return div_u64(user, NSEC_PER_SEC / USER_HZ);
+		return div_u64(x, NSEC_PER_SEC / USER_HZ);
 	}
 	else if (USER_HZ % 512 == 0)
 	{
-		return div_u64(user * USER_HZ / 512, NSEC_PER_SEC / 512);
+		return div_u64(x * USER_HZ / 512, NSEC_PER_SEC / 512);
 	}
 	else
 	{
@@ -99,7 +99,7 @@ static u64 nsec_to_clock_t(u64 x)
 					* overflow after 64.99 years.
 					* exact for HZ=60, 72, 90, 120, 144, 180, 300, 600, 900, ...
 					*/
-		return div_u64(user * 9, (9ull * NSEC_PER_SEC + (USER_HZ / 2)) / USER_HZ);
+		return div_u64(x * 9, (9ull * NSEC_PER_SEC + (USER_HZ / 2)) / USER_HZ);
 	}
 }
 
@@ -134,8 +134,8 @@ static int show_stat(struct seq_file *p, void *v)
 	total = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 
 	seq_printf(p, "All \t");
-	seq_printf(p, "%llu", nsec_to_clock_t(user);
-	seq_printf(p, "\t ");
+	seq_printf(p, "%llu", nsec_to_clock_t(user))
+		seq_printf(p, "\t ");
 	seq_printf(p, "%llu", system);
 	seq_printf(p, "\t");
 	seq_printf(p, "%llu", iowait);
