@@ -118,7 +118,7 @@ static int show_stat(struct seq_file *p, void *v)
 	}
 	else if (USER_HZ % 512 == 0)
 	{
-		use = div_u64(user * USER_HZ / 512, NSEC_PER_SEC / 512);
+		user = div_u64(user * USER_HZ / 512, NSEC_PER_SEC / 512);
 	}
 	else
 	{
@@ -130,7 +130,6 @@ static int show_stat(struct seq_file *p, void *v)
 		user = div_u64(user * 9, (9ull * NSEC_PER_SEC + (USER_HZ / 2)) / USER_HZ);
 	}
 
-	seq_put_decimal_ull(p, ' ', nsec_to_clock_t(user));
 	seq_printf(p, "All \t");
 	seq_printf(p, "%llu", user);
 	seq_printf(p, "\t ");
