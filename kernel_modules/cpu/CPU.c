@@ -82,7 +82,7 @@ static u64 get_iowait_time(int cpu)
 
 #endif
 
-static u64 nsec_to_clock_t(u64 x)
+static u64 nano_to_clock_t(u64 x)
 {
 	if (NSEC_PER_SEC % USER_HZ == 0)
 	{
@@ -134,8 +134,8 @@ static int show_stat(struct seq_file *p, void *v)
 	total = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 
 	seq_printf(p, "All \t");
-	seq_printf(p, "%llu", nsec_to_clock_t(user))
-		seq_printf(p, "\t ");
+	seq_printf(p, "%llu", nano_to_clock_t(user));
+	seq_printf(p, "\t ");
 	seq_printf(p, "%llu", system);
 	seq_printf(p, "\t");
 	seq_printf(p, "%llu", iowait);
