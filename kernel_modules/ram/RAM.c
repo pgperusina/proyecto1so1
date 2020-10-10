@@ -6,6 +6,11 @@
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #include <linux/mm.h>
+#include <asm/uaccess.h>
+#include <linux/mm.h>
+#include <linux/mman.h>
+#include <linux/mmzone.h>
+#include <asm/page.h>
 
 static const char *filename = "memory_info";
 struct sysinfo i;
@@ -19,8 +24,8 @@ static void show_val_kb(struct seq_file *m, const char *s, unsigned long num)
 static int show_memory_info(struct seq_file *f, void *v)
 {
     si_meminfo(&i);
-    show_val_kb(f, "TotalRAM:", i.totalram);
-    show_val_kb(f, "FreeRAM:", i.freeram);
+    show_val_kb(f, "TotalRAM:  ", i.totalram);
+    show_val_kb(f, "FreeRAM:   ", i.freeram);
     return 0;
 }
 
