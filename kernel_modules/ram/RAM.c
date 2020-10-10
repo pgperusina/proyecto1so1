@@ -85,7 +85,7 @@ static int my_proc_show(struct seq_file *m, void *v)
     //uc_temp = cp->cur - cp->min; //usec cpu freq
     //tc_temp = cp->max - cp->min; //total cpu freq
 
-    seq_printf(m, "{\n\t\"used\":%lu,\n\t\"total\":%lu,\n}\n", used, total); //writing in JSON format in /proc/modulo file
+    seq_printf(m, "{\n\t\"used\":%d,\n\t\"total\":%d,\n}\n", used, total); //writing in JSON format in /proc/modulo file
 
     arch_report_meminfo(m);
 
