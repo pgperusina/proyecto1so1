@@ -149,7 +149,7 @@ static int show_stat(struct seq_file *p, void *v)
 	seq_printf(p, "%llu", nano_to_clock_t(sum));
 	seq_printf(p, "\n");
 
-	msleep(2);
+	msleep(2000);
 
 	i = 0;
 	user = 0;
