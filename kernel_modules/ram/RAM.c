@@ -22,8 +22,8 @@ struct sysinfo i;
 static int show_memory_info(struct seq_file *f, void *v)
 {
     si_meminfo(&i);
-    seq_printf(f, "%8lu", i.totalram);
-    seq_printf(f, "%8lu", i.freeram);
+    seq_printf(f, "%8lu\n", i.totalram);
+    seq_printf(f, "%8lu\n", i.freeram);
     return 0;
 }
 
