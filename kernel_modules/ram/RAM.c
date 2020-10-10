@@ -11,10 +11,10 @@ struct sysinfo i;
 
 static int show_memory_info(struct seq_file *f, void *v)
 {
-    si_meminfo(&i);
     int32_t used;
     int32_t total;
     int32_t freeram;
+    si_meminfo(&i);
     total = ((uint64_t)i.totalram * i.mem_unit) / 1024;
     freeram = ((uint64_t)i.freeram * i.mem_unit) / 1024;
     used = total - freeram;
