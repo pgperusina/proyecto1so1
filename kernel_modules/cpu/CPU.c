@@ -105,13 +105,13 @@ static u64 nano_to_clock_t(u64 x)
 
 static int show_stat(struct seq_file *p, void *v)
 {
-	int i, j;
+	int i;
 	u64 user, nice, system, idle, iowait, irq, softirq, steal;
 	u64 guest, guest_nice;
 	u64 sum, last_sum = 0;
 	u64 cpu_idle, last_cpu_idle = 0;
-	u64 cpu_delta cpu_used, cpu_usage,
-		struct timespec64 boottime;
+	u64 cpu_delta, cpu_used, cpu_usage = 0;
+	struct timespec64 boottime;
 
 	user = nice = system = idle = iowait =
 		irq = softirq = steal = 0;
