@@ -3,28 +3,17 @@
 #include <linux/init.h>
 
 #include <linux/fs.h>
-#include <linux/proc_fs.h>
 #include <linux/mm.h>
 
-#include <linux/mman.h>
-#include <linux/mmzone.h>
 #include <linux/proc_fs.h>
-#include <linux/percpu.h>
-#include <linux/quicklist.h>
 #include <linux/seq_file.h>
-#include <linux/swap.h>
-#include <linux/vmstat.h>
-#include <linux/atomic.h>
-#include <linux/vmalloc.h>
 
 #include <asm/page.h>
-#include <asm/pgtable.h>
-#include "internal.h"
 
 static const char *filename = "memory_info";
 struct sysinfo i;
 
-static void show_val_kb(struct seq_file *m, const char *s, unsigned long num)
+extern void show_val_kb(struct seq_file *m, const char *s, unsigned long num)
 {
     seq_put_decimal_ull_width(m, s, num << (PAGE_SHIFT - 10), 8);
     seq_write(m, " kB\n", 4);
