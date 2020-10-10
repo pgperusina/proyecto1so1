@@ -78,9 +78,9 @@ static int my_proc_show(struct seq_file *m, void *v)
     struct cpufreq_policy *cp;
     unsigned long used, total;
 
-    si_meminfo(&i);                //gets memory info
-    used = i.totalram - i.freeram; //used memory
-    total = i.totalram;            //total memory
+    si_meminfo(&i);                                    //gets memory info
+    used = (uint64_t)i.totalram - (uint64_t)i.freeram; //used memory
+    total = (uint64_t)i.totalram;                      //total memory
 
     //cp = cpufreq_cpu_get(0); //returning 0
     //uc_temp = cp->cur - cp->min; //usec cpu freq
