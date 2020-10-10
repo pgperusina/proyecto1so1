@@ -111,7 +111,8 @@ static int show_stat(struct seq_file *p, void *v)
 	u64 guest, guest_nice;
 	u64 sum, last_sum = 0;
 	u64 cpu_idle, last_cpu_idle = 0;
-	u64 cpu_delta, cpu_used, cpu_usage = 0;
+	u64 cpu_delta, cpu_used = 0;
+	int32_t cpu_usage = 0;
 	struct timespec64 boottime;
 
 	user = nice = system = idle = iowait =
@@ -184,7 +185,7 @@ static int show_stat(struct seq_file *p, void *v)
 
 	cpu_used = cpu_delta - cpu_idle;
 
-	cpu_usage = (100 * cpu_used) / cpu_delta;
+	cpu_usage = (100 * (uint64_t)cpu_used) / (uint64_t)cpu_delta;
 
 	seq_printf(p, "Last \t");
 	seq_printf(p, "%llu", nano_to_clock_t(user));
