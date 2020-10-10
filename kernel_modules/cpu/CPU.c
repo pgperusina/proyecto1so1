@@ -150,6 +150,7 @@ static int show_stat(struct seq_file *p, void *v)
 
 	msleep(2);
 
+	i = 0;
 	for_each_possible_cpu(i)
 	{
 		user += kcpustat_cpu(i).cpustat[CPUTIME_USER];
