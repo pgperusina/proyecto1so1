@@ -5,10 +5,7 @@
 #include <linux/fs.h>
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
-#include <asm/uaccess.h>
 #include <linux/mm.h>
-//#include <linux/mman.h>
-//#include <linux/mmzone.h>
 
 static const char *filename = "memory_info";
 struct sysinfo i;
