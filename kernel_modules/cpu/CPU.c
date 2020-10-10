@@ -168,7 +168,7 @@ static int show_stat(struct seq_file *p, void *v)
 
 	last_sum = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 
-	cpu_usage_2 = 100 - (100 * (nano_to_clock_t(cpu_idle) - nano_to_clock_t(idle))) / (nano_to_clock_t(sum) - nano_to_clock_t(last_sum));
+	cpu_usage_2 = 100 - nano_to_clock_t(idle);
 
 	// last_sum = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 	// last_cpu_idle = idle;
