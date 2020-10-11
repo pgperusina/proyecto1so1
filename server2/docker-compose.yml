@@ -4,6 +4,7 @@ services:
   consumer:
     image: petzydrummer/server2
     container_name: "server2"
+    command: ["sleep","infinity"]
     volumes:
       - .:/code
     ports:
