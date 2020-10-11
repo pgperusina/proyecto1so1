@@ -5,7 +5,5 @@ RUN apt-get install -y git
 RUN apt-get install -y npm
 RUN apt-get install -y nodejs
 
-WORKDIR "/code"
-COPY . .
-CMD ["bash"]
+CMD ["/bin/ping"]
 EXPOSE 80
