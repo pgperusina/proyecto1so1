@@ -22,7 +22,8 @@ def ingresar_archivo():
     for i in oraciones:
         tmp_user = users[random.randint(0,2)]
         obj = {}
-        obj[tmp_user] = i
+        obj["usuario"] = tmp_user
+        obj["mensaje"] = i
         elementos.append(obj)
 
     print(elementos[0])

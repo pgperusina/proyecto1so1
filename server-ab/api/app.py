@@ -2,6 +2,7 @@ from flask import Flask
 from flask_api import status
 from flask import request
 from pymongo import MongoClient
+from flask import jsonify
 
 app = Flask(__name__)
 try:
@@ -73,11 +74,18 @@ def get_vm_ram_usage():
 
 @app.route("/getDocuments", methods=['GET'])
 def get_documents():
+    res = []
     try:
-        documents = dict(db.proyecto1.find({}))
-        print("GET DOCUMENTS --- ALL DOCUMENTS")
-        print(documents)
-        return documents, status.HTTP_200_OK
+        cursor = db.proyecto1 # choosing the collection you need
+        for document in cursor.find():
+            print (document)
+            el = {}
+            el["usuario"] = document.usuario
+            el["mensaje"] = document.mensaje
+            res.append(el)
+        print("DOCUMENTS!!!!!!! ... ")
+        print(res)
+        return jsonify(results = res), status.HTTP_200_OK
     except Exception as e:
         print("error getting documents")
         print(e)
