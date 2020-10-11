@@ -9,5 +9,4 @@ WORKDIR "/code"
 COPY . .
 WORKDIR "/code/app/client"
 
-CMD ["sleep", "infinity"]
 EXPOSE 80
