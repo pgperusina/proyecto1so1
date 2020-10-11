@@ -74,7 +74,7 @@ def get_vm_ram_usage():
 @app.route("/getDocuments", methods=['GET'])
 def get_documents():
     try:
-        documents = list(db.proyecto1.find({}))
+        documents = dict(db.proyecto1.find({}))
         print("GET DOCUMENTS --- ALL DOCUMENTS")
         print(documents)
         return documents, status.HTTP_200_OK
