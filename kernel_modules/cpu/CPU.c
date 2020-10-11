@@ -137,7 +137,7 @@ static int show_stat(struct seq_file *p, void *v)
 	sum = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 	cpu_idle = idle;
 	cpu_usage = cpu_idle - sum / sum;
-	cpu_usage = 100 - cpu_usage;
+	cpu_usage = cpu_usage;
 
 	seq_printf(p, "idle \t");
 	seq_printf(p, "%d", cpu_idle);
