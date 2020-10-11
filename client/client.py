@@ -1,10 +1,14 @@
 import pathlib
 import random
+import time
+import json
+import requests
+
 
 archivo = ""
 elementos = []
 users = ["Hugo", "Juana", "Luis", "Paco", "Isabel"]
-servidor = 0
+servidor = "http://104.198.149.235"
 
 def ingresar_archivo():
     archivo = str(input("Ingrese nombre del archivo: "))
@@ -25,6 +29,8 @@ def ingresar_archivo():
 
 def ingresar_servidor():
     servidor = str(input("Ingrese dirección IP del servidor: "))
+    if ("http://" not in servidor):
+        servidor = "http://" + servidor
     print("El servidor es: " + servidor)
 
 def ver_datos():
@@ -32,26 +38,24 @@ def ver_datos():
         print(i)
 
 def enviar_datos():
+    if len(servidor) == 0:
+        print("Por favor ingresar servidor para envío de datos.")
+        return
     try:
         print("posting to server...")
         for i in elementos:
             print(json.dumps(i))
-            r = requests.post(server + "/document", data = json.dumps(i))
+            r = requests.post(servidor + "/document", data = json.dumps(i))
             if r.status_code == requests.codes.ok:
-                print(r.text)
-                print("Server " + server + " posting....")
-                return r.text
+                print("document sent...")
+                print(i)
             else:
-                print("error posting to server " + server)
+                print("error posting to server " + servidor)
                 print(str(r.status_code))
-                app.logger.info("Error posting document to '%s'.", server)
-                return None
+            time.sleep(1)
     except Exception as e:
-        app.logger.info("Error posting document to '%s'.", server)
-        app.logger.info()
-        return None
-
-
+        print("error posting to server " + servidor)
+        print(e)
 
 def menu():
     print("1. Ingresar ruta de archivo")

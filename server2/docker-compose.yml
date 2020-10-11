@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  consumer:
+    image: petzydrummer/server2
+    container_name: "server2"
+    volumes:
+      - .:/code
+    ports:
+      - "80:80"
