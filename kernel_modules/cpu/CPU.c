@@ -139,6 +139,7 @@ static int show_stat(struct seq_file *p, void *v)
 	cpu_usage = cpu_idle - sum;
 	cpu_usage = cpu_usage / sum;
 	cpu_usage = 100 * cpu_usage;
+	cpu_usage_2 = div64_u64(abs64(cpu_usage), abs64(sum));
 
 	seq_printf(p, "idle \t");
 	seq_printf(p, "%llu", cpu_idle);
@@ -149,8 +150,8 @@ static int show_stat(struct seq_file *p, void *v)
 	seq_printf(p, "CPU usage normal\t");
 	seq_printf(p, "%llu", cpu_usage);
 	seq_printf(p, "\n");
-	seq_printf(p, "CPU usage nano to t\t");
-	seq_printf(p, "%llu", nano_to_clock_t(cpu_usage));
+	seq_printf(p, "CPU usage 2\t");
+	seq_printf(p, "%llu", cpu_usage_2);
 	seq_printf(p, "\n");
 
 	return 0;
