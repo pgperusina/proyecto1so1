@@ -7,5 +7,5 @@ RUN apt-get install -y nodejs
 
 WORKDIR "/code"
 COPY . .
-CMD ["/bin/bash"]
+CMD ["bash"]
 EXPOSE 80
