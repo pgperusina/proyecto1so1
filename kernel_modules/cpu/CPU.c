@@ -146,6 +146,12 @@ static int show_stat(struct seq_file *p, void *v)
 	seq_printf(p, "Sum \t");
 	seq_printf(p, "%llu", sum);
 	seq_printf(p, "\n");
+	seq_printf(p, "CPU usage normal\t");
+	seq_printf(p, "%llu", cpu_usage);
+	seq_printf(p, "\n");
+	seq_printf(p, "CPU usage 2\t");
+	seq_printf(p, "%llu", cpu_usage_2);
+	seq_printf(p, "\n");
 
 	return 0;
 }
