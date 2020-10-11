@@ -80,8 +80,8 @@ def get_documents():
         for document in cursor.find():
             print (document)
             el = {}
-            el["usuario"] = document.usuario
-            el["mensaje"] = document.mensaje
+            el["usuario"] = document.get("usuario")
+            el["mensaje"] = document.get("mensaje")
             res.append(el)
         print("DOCUMENTS!!!!!!! ... ")
         print(res)
