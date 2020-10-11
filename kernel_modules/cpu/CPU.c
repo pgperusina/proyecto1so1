@@ -140,10 +140,10 @@ static int show_stat(struct seq_file *p, void *v)
 	cpu_usage = 100 - cpu_usage;
 
 	seq_printf(p, "idle \t");
-	seq_printf(p, "%d", nano_to_clock_t(cpu_idle));
+	seq_printf(p, "%llu", nano_to_clock_t(cpu_idle));
 	seq_printf(p, "\n");
 	seq_printf(p, "CPU usage \t");
-	seq_printf(p, "%d", nano_to_clock_t(sum));
+	seq_printf(p, "%llu", nano_to_clock_t(sum));
 	seq_printf(p, "\n");
 	seq_printf(p, "CPU usage \t");
 	seq_printf(p, "%d", cpu_usage);
