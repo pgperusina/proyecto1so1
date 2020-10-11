@@ -72,13 +72,24 @@ def get_vm_ram_usage():
         app.logger.info('Error getting VM RAM usage - %s', e)
         return str("Error getting VM RAM usage"), status.HTTP_500_INTERNAL_SERVER_ERROR
 
+@app.route("/getCpuUsage", methods=['GET'])
+def get_vm_cpu_usage():
+    try:
+        file = open("/host/proc/cpu_info")
+        line = file.read()
+        file.close()
+        return str(line)
+    except Exception as e:
+        print("Error VM CPU Usage print ---- ", + str(e))
+        app.logger.info('Error getting VM CPU usage - %s', e)
+        return str("Error getting VM CPU usage"), status.HTTP_500_INTERNAL_SERVER_ERROR
+
 @app.route("/getDocuments", methods=['GET'])
 def get_documents():
     res = []
     try:
         cursor = db.proyecto1 # choosing the collection you need
         for document in cursor.find():
-            print (document)
             el = {}
             el["usuario"] = document.get("usuario")
             el["mensaje"] = document.get("mensaje")
