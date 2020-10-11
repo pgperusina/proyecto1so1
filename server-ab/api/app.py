@@ -75,6 +75,8 @@ def get_vm_ram_usage():
 def get_documents():
     try:
         documents = list(db.proyecto1.find({}))
+        print("GET DOCUMENTS --- ALL DOCUMENTS")
+        print(documents)
         return documents, status.HTTP_200_OK
     except Exception as e:
         print("error getting documents")
