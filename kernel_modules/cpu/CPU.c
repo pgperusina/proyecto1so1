@@ -136,17 +136,20 @@ static int show_stat(struct seq_file *p, void *v)
 
 	sum = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 	cpu_idle = idle;
-	cpu_usage = nano_to_clock_t(cpu_idle) - nano_to_clock_t(sum) / nano_to_clock_t(sum);
+	cpu_usage = cpu_idle - sum / sum;
 	cpu_usage = 100 - cpu_usage;
 
 	seq_printf(p, "idle \t");
-	seq_printf(p, "%llu", nano_to_clock_t(cpu_idle));
+	seq_printf(p, "%d", cpu_idle);
 	seq_printf(p, "\n");
-	seq_printf(p, "CPU usage \t");
-	seq_printf(p, "%llu", nano_to_clock_t(sum));
+	seq_printf(p, "Sum \t");
+	seq_printf(p, "%d", sum;
 	seq_printf(p, "\n");
-	seq_printf(p, "CPU usage \t");
+	seq_printf(p, "CPU usage normal\t");
 	seq_printf(p, "%d", cpu_usage);
+	seq_printf(p, "\n");
+	seq_printf(p, "CPU usage nano to t\t");
+	seq_printf(p, "%d", nano_to_clock_t(cpu_usage));
 	seq_printf(p, "\n");
 
 	return 0;
