@@ -137,20 +137,14 @@ static int show_stat(struct seq_file *p, void *v)
 	sum = user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
 	cpu_idle = idle;
 	cpu_usage = cpu_idle - sum;
-	cpu_usage = cpu_usage / sum;
 	cpu_usage_2 = div_u64(cpu_usage, sum);
+	cpu_usage = cpu_usage / sum;
 
 	seq_printf(p, "idle \t");
 	seq_printf(p, "%llu", cpu_idle);
 	seq_printf(p, "\n");
 	seq_printf(p, "Sum \t");
 	seq_printf(p, "%llu", sum);
-	seq_printf(p, "\n");
-	seq_printf(p, "CPU usage normal\t");
-	seq_printf(p, "%llu", cpu_usage);
-	seq_printf(p, "\n");
-	seq_printf(p, "CPU usage 2\t");
-	seq_printf(p, "%llu", cpu_usage_2);
 	seq_printf(p, "\n");
 
 	return 0;
