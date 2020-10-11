@@ -32,11 +32,17 @@ def get_ram(server):
     try:
         r = requests.get(server + "/getRamUsage")
         if r.status_code == requests.codes.ok:
-            return r.text
+            json_data = json.loads(r.text)
+            print(json_data)
+            return json_data["usage"]
         else:
+            print("Error getting RAM")
+            print(server)
             app.logger.info("Error getting RAM usage from '%s'. Status code: '%s'", server, str(r.status_code))
             return 0
     except Exception as e:
+        print("Error getting RAM")
+        print(server)
         app.logger.info('Error getting RAM usage from %s. -- %s', server, e)
         return 0
 
@@ -92,7 +98,7 @@ def post_based_on_counting(a_count, b_count, json_data):
 
 def post_based_on_ram(a_ram, b_ram, json_data):
     if a_ram is None or b_ram is None:
-        app.logger.info("Error, RAM usage not available")
+        print("Error, RAM usage not available")
         return None
     elif a_ram > b_ram:
         result = post_to_server(SERVER_B, json_data)
@@ -137,26 +143,16 @@ def post_data():
         if response is not None and response is not 0:
             return str(response), status.HTTP_200_OK
 
-        else:
-            #return "TODO - implement ram and cpu validation.", status.HTTP_200_OK
-            result = post_to_server(SERVER_A, json_data)
-            print("posting to server A - same number of documents in both dbs")
-            print(result)
-            if result is None:
-                print("Error posting to server A")
-                app.logger.info("Error posting document to '%s'.", SERVER_A)
-                return str("Error sending data to AAAAA"), status.HTTP_500_INTERNAL_SERVER_ERROR
-            else:
-                return str(result), status.HTTP_200_OK
-
         #### Posting to server based on server RAM usage
-        # else:
-        #     a_ram = int(get_ram(SERVER_A))
-        #     b_ram = int(get_ram(SERVER_B))
+        else:
+            a_ram = int(get_ram(SERVER_A))
+            b_ram = int(get_ram(SERVER_B))
 
-        #     response = post_based_on_ram(a_ram, b_ram, json_data)
-        #     if response is not None:
-        #         return str(response), status.HTTP_200_OK
+            response = post_based_on_ram(a_ram, b_ram, json_data)
+            print("post based on RAM")
+            print(response)
+            if response is not None and response is not 0:
+                return str(response), status.HTTP_200_OK
         
             #### Posting to server based on server CPU usage
             # else:
