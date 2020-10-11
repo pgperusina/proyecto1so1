@@ -32,6 +32,7 @@ def get_ram(server):
     try:
         r = requests.get(server + "/getRamUsage")
         if r.status_code == requests.codes.ok:
+            print(r.text)
             json_data = json.loads(r.text)
             print(json_data)
             return json_data["usage"]
