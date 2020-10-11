@@ -140,7 +140,7 @@ static int show_stat(struct seq_file *p, void *v)
 	cpu_usage_2 = div_u64(cpu_usage, sum);
 	cpu_usage = cpu_usage / sum;
 
-	seq_printf(f, "{\n\t\"idle\":\"%llu\",\n\t\"sum\":\"%llu\"\n}\n", cpu_idle, sum);
+	seq_printf(p, "{\n\t\"idle\":\"%llu\",\n\t\"sum\":\"%llu\"\n}\n", cpu_idle, sum);
 	return 0;
 }
 
