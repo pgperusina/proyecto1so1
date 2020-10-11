@@ -62,7 +62,7 @@ def post_document():
 @app.route("/getRamUsage", methods=['GET'])
 def get_vm_ram_usage():
     try:
-        file = open("/host/proc/meminfo")
+        file = open("/host/proc/memory_info")
         line = file.read()
         file.close()
         return str(line)
@@ -70,3 +70,14 @@ def get_vm_ram_usage():
         print("Error VM RAM Usage print ---- ", + str(e))
         app.logger.info('Error getting VM RAM usage - %s', e)
         return str("Error getting VM RAM usage"), status.HTTP_500_INTERNAL_SERVER_ERROR
+
+@app.route("/getDocuments", methods=['GET'])
+def get_documents():
+    try:
+        documents = list(db.proyecto1.find({}))
+        return documents, status.HTTP_200_OK
+    except Exception as e:
+        print("error getting documents")
+        print(e)
+        app.logger.info('Error getting documents  - %s', e)
+        return str("Error getting documents ."), status.HTTP_500_INTERNAL_SERVER_ERROR
