@@ -109,10 +109,10 @@ static int show_stat(struct seq_file *p, void *v)
 	int i;
 	u64 user, nice, system, idle, iowait, irq, softirq, steal;
 	u64 guest, guest_nice;
-	int32_t sum, last_sum = 0;
-	int32_t cpu_idle = 0;
+	u64 sum, last_sum = 0;
+	u64 cpu_idle = 0;
 	u64 cpu_delta, cpu_used = 0;
-	int32_t cpu_usage, cpu_usage_2 = 0;
+	u64 cpu_usage, cpu_usage_2 = 0;
 	struct timespec64 boottime;
 
 	user = nice = system = idle = iowait =
@@ -140,13 +140,13 @@ static int show_stat(struct seq_file *p, void *v)
 	cpu_usage = cpu_usage;
 
 	seq_printf(p, "idle \t");
-	seq_printf(p, "%d", cpu_idle);
+	seq_printf(p, "%llu", cpu_idle);
 	seq_printf(p, "\n");
 	seq_printf(p, "Sum \t");
-	seq_printf(p, "%d", sum);
+	seq_printf(p, "%llu", sum);
 	seq_printf(p, "\n");
 	seq_printf(p, "CPU usage normal\t");
-	seq_printf(p, "%d", cpu_usage);
+	seq_printf(p, "%llu", cpu_usage);
 	seq_printf(p, "\n");
 	seq_printf(p, "CPU usage nano to t\t");
 	seq_printf(p, "%llu", nano_to_clock_t(cpu_usage));
