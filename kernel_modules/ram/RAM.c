@@ -16,12 +16,12 @@ static int show_memory_info(struct seq_file *f, void *v)
     int32_t freeram;
     int32_t usage;
     si_meminfo(&i);
-    total = ((uint64_t)i.totalram * i.mem_unit) / 1024;
-    freeram = ((uint64_t)i.freeram * i.mem_unit) / 1024;
+    total = ((uint64_t)i.totalram * i.mem_unit) / 1024 / 1024;
+    freeram = ((uint64_t)i.freeram * i.mem_unit) / 1024 / 1024;
     used = total - freeram;
     usage = (100 * used) / total;
     // Values in kB
-    seq_printf(f, "{\n\t\"used\":\"%d\",\n\t\"total\":\"%d\",\n\t\"usage\":\"%d\"\n}\n", used, total, usage);
+    seq_printf(f, "{\n\t\"total\":\"%d\",\n\t\"free\":\"%d\",\n\t\"usage\":\"%d\"\n}\n", total, freeram, usage);
     return 0;
 }
 
@@ -55,5 +55,5 @@ module_init(ram_init);
 module_exit(ram_exit);
 
 MODULE_AUTHOR("Pablo Gerardo García Perusina");
-MODULE_DESCRIPTION("Kernel module to show total and free RAM. OS1");
+MODULE_DESCRIPTION("Kernel module to show total and free RAM. OS2");
 MODULE_LICENSE("GPL");
